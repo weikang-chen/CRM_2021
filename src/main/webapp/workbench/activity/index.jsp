@@ -21,6 +21,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	$(function(){
 		$("#addBtn").click(function () {
 
+			$(".time").datetimepicker({
+				minView: "month",
+				language:  'zh-CN',
+				format: 'yyyy-mm-dd',
+				autoclose: true,
+				todayBtn: true,
+				pickerPosition: "bottom-left"
+			});
+
 			//alert(123);
 			//走后台，获取user列表，为模态窗口下拉框铺值
 			$.ajax({
@@ -33,6 +42,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						html += "<option value='"+ n.id +"'>"+ n.name +"</option>";
 					})
 					$("#create-marketActivityOwner").html(html);
+
+					var id = "${user.id}";
+					$("#create-marketActivityOwner").val(id);
 
 					$("#createActivityModal").modal("show");
 				}
@@ -78,11 +90,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="form-group">
 							<label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-startTime">
+								<input type="text" class="form-control time" id="create-startTime">
 							</div>
 							<label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-endTime">
+								<input type="text" class="form-control time" id="create-endTime">
 							</div>
 						</div>
                         <div class="form-group">
