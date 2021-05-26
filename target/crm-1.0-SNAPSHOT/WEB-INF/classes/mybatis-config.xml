@@ -9,7 +9,8 @@
   <typeAliases>
   
   	<package name="com.cwk.crm.settings.damain"/>
-  	
+  	<package name="com.cwk.crm.workbench.domain"/>
+
   
   </typeAliases>
   
@@ -29,7 +30,8 @@
   <mappers>
    
       <package name="com.cwk.crm.settings.dao"/>
-    
+      <package name="com.cwk.crm.workbench.dao"/>
+
   </mappers>
 </configuration>
 

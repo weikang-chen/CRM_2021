@@ -8,6 +8,7 @@ import com.cwk.crm.utils.DateTimeUtil;
 import com.cwk.crm.utils.SqlSessionUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
@@ -50,5 +51,12 @@ public class UserServiceImpl implements UserService {
 
         //执行到这里说明用户正常
         return user;
+    }
+
+    @Override
+    public List<User> getUserList() {
+
+        List<User> userList = userDao.getUserList();
+        return userList;
     }
 }
