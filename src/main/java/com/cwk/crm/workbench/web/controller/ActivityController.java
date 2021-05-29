@@ -33,12 +33,39 @@ public class ActivityController extends HttpServlet {
             delete(request,response);
         }else if("/workbench/activity/getUserListAndActivity.do".equals(path)){
             getUserListAndActivity(request,response);
+        }else if("/workbench/activity/update.do".equals(path)){
+            update(request,response);
         }
     }
 
+    private void update(HttpServletRequest request, HttpServletResponse response) {
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        Activity activity = new Activity();
+        String id = request.getParameter("id");
+        String owner =request.getParameter("owner");
+        String name =request.getParameter("name");
+        String startDate =request.getParameter("startDate");
+        String endDate =request.getParameter("endDate");
+        String cost =request.getParameter("cost");
+        String description =request.getParameter("description");
+        String editTime = DateTimeUtil.getSysTime();
+        String editBy = ((User)request.getSession().getAttribute("user")).getName();
+        activity.setId(id);
+        activity.setOwner(owner);
+        activity.setName(name);
+        activity.setStartDate(startDate);
+        activity.setEndDate(endDate);
+        activity.setCost(cost);
+        activity.setDescription(description);
+        activity.setEditTime(editTime);
+        activity.setEditBy(editBy);
+        boolean success = as.update(activity);
+        PrintJson.printJsonFlag(response,success);
+
+    }
+
     private void getUserListAndActivity(HttpServletRequest request, HttpServletResponse response) {
-
-
+        
         ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
         String id = request.getParameter("id");
         Map<String,Object> map = as.getUserListAndActivity(id);

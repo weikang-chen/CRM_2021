@@ -78,11 +78,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				dataType:"json",
 				success: function (data) {
 					if(data.success){
+						pageList(1,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
+
 						//删除模态窗口缓存
 						$("#activityAddForm")[0].reset();
 						//关闭模态窗口，局部刷新
 						$("#createActivityModal").modal("hide");
-						pageList(1,2);
+
 					}else{
 						alert("添加失败")
 					}
@@ -142,7 +144,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						dataType: "json",
 						success: function (data) {
 							if(data.success){
-								pageList(1,2);
+								pageList(1,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
+
 							}else {
 								alert("删除失败！");
 							}
@@ -200,6 +203,39 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				})
 			}
 
+		})
+
+		//市场活动更新按钮
+		$("#updateBtn").click(function () {
+			$.ajax({
+				url: "workbench/activity/update.do",
+				data: {
+					"id":$.trim($("#edit-id").val()),
+					"name":$.trim($("#edit-marketActivityName").val()),
+					"owner":$.trim($("#edit-marketActivityOwner").val()),
+					"startDate":$.trim($("#edit-startTime").val()),
+					"endDate":$.trim($("#edit-endTime").val()),
+					"cost":$.trim($("#edit-cost").val()),
+					"description":$.trim($("#edit-describe").val())
+
+				},
+				type: "post",
+				dataType: "json",
+				success: function (data) {
+					if(data.success){
+
+						pageList($("#activityPage").bs_pagination('getOption', 'currentPage')
+								,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
+
+						//关闭模态窗口，局部刷新
+						$("#editActivityModal").modal("hide");
+
+					}else {
+						alert("更新失败！");
+					}
+
+				}
+			})
 		})
 
 	});
@@ -360,7 +396,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				</div>
 				<div class="modal-body">
 				
-					<form class="form-horizontal" role="form">
+					<form id="activityEditForm" class="form-horizontal" role="form">
 
 						<input type="hidden" id="edit-id"/>
 
@@ -380,11 +416,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 						<div class="form-group">
 							<label for="edit-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control time" id="edit-startTime">
+								<input type="text" class="form-control time" id="edit-startTime" readonly>
 							</div>
 							<label for="edit-endTime" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control time" id="edit-endTime">
+								<input type="text" class="form-control time" id="edit-endTime" readonly>
 							</div>
 						</div>
 						

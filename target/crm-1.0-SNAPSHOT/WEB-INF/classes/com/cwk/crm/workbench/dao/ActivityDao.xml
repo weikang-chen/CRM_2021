@@ -97,4 +97,17 @@
 
     </select>
 
+    <update id="update">
+        update tbl_activity
+        set owner = #{owner},
+            name = #{name},
+            startDate = #{startDate},
+            endDate = #{endDate},
+            cost = #{cost},
+            description = #{description},
+            editTime = #{editTime},
+            editBy = #{editBy}
+        where id = #{id}
+    </update>
+
 </mapper>
