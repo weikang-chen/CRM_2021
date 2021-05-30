@@ -7,7 +7,9 @@ import com.cwk.crm.vo.PaginationVO;
 import com.cwk.crm.workbench.dao.ActivityDao;
 import com.cwk.crm.workbench.dao.ActivityRemarkDao;
 import com.cwk.crm.workbench.domain.Activity;
+import com.cwk.crm.workbench.domain.ActivityRemark;
 import com.cwk.crm.workbench.service.ActivityService;
+import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 
 
 import java.util.HashMap;
@@ -74,6 +76,38 @@ public class ActivityServiceImpl implements ActivityService {
     public boolean update(Activity activity) {
         boolean success = true;
         int count = activityDao.update(activity);
+        if(count != 1){
+            success = false;
+        }
+        return success;
+    }
+
+    @Override
+    public Activity detail(String id) {
+        Activity a = activityDao.detail(id);
+        return a;
+    }
+
+    @Override
+    public List<ActivityRemark> getRemarkListByAid(String activityId) {
+        List<ActivityRemark> remarkList = activityRemarkDao.getRemarkListByAid(activityId);
+        return remarkList;
+    }
+
+    @Override
+    public boolean deleteRemark(String id) {
+        boolean success = true;
+        int count = activityRemarkDao.deleteById(id);
+        if(count != 1){
+            success = false;
+        }
+        return success;
+    }
+
+    @Override
+    public boolean saveRemark(ActivityRemark ar) {
+        boolean success = true;
+        int count = activityRemarkDao.save(ar);
         if(count != 1){
             success = false;
         }

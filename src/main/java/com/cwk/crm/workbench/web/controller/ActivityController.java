@@ -6,6 +6,7 @@ import com.cwk.crm.settings.service.impl.UserServiceImpl;
 import com.cwk.crm.utils.*;
 import com.cwk.crm.vo.PaginationVO;
 import com.cwk.crm.workbench.domain.Activity;
+import com.cwk.crm.workbench.domain.ActivityRemark;
 import com.cwk.crm.workbench.service.ActivityService;
 import com.cwk.crm.workbench.service.Impl.ActivityServiceImpl;
 
@@ -35,7 +36,59 @@ public class ActivityController extends HttpServlet {
             getUserListAndActivity(request,response);
         }else if("/workbench/activity/update.do".equals(path)){
             update(request,response);
+        }else if("/workbench/activity/detail.do".equals(path)){
+            detail(request,response);
+        }else if("/workbench/activity/getRemarkListByAid.do".equals(path)){
+            getRemarkListByAid(request,response);
+        }else if("/workbench/activity/deleteRemark.do".equals(path)){
+            deleteRemark(request,response);
+        }else if("/workbench/activity/saveRemark.do".equals(path)){
+            saveRemark(request,response);
         }
+    }
+
+    private void saveRemark(HttpServletRequest request, HttpServletResponse response) {
+        String id = UUIDUtil.getUUID();
+        String noteContent = request.getParameter("noteContent");
+        String activityId = request.getParameter("activityId");
+        String createTime = DateTimeUtil.getSysTime();
+        String createBy = ((User)request.getSession().getAttribute("user")).getName();
+        ActivityRemark ar = new ActivityRemark();
+        ar.setId(id);
+        ar.setNoteContent(noteContent);
+        ar.setCreateTime(createTime);
+        ar.setCreateBy(createBy);
+        ar.setActivityId(activityId);
+        ar.setEditFlag("0");
+
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        boolean success = as.saveRemark(ar);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("success",success);
+        map.put("ar",ar);
+        PrintJson.printJsonObj(response,map);
+    }
+
+    private void deleteRemark(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        boolean success = as.deleteRemark(id);
+        PrintJson.printJsonFlag(response,success);
+    }
+
+    private void getRemarkListByAid(HttpServletRequest request, HttpServletResponse response) {
+        String activityId = request.getParameter("activityId");
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        List<ActivityRemark> remarkList = as.getRemarkListByAid(activityId);
+        PrintJson.printJsonObj(response,remarkList);
+    }
+
+    private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id= request.getParameter("id");
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        Activity a = as.detail(id);
+        request.setAttribute("a",a);
+        request.getRequestDispatcher("/workbench/activity/detail.jsp").forward(request,response);
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) {
@@ -65,7 +118,7 @@ public class ActivityController extends HttpServlet {
     }
 
     private void getUserListAndActivity(HttpServletRequest request, HttpServletResponse response) {
-        
+
         ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
         String id = request.getParameter("id");
         Map<String,Object> map = as.getUserListAndActivity(id);
