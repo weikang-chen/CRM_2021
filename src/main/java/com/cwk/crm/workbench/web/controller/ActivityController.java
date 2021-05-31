@@ -44,7 +44,30 @@ public class ActivityController extends HttpServlet {
             deleteRemark(request,response);
         }else if("/workbench/activity/saveRemark.do".equals(path)){
             saveRemark(request,response);
+        }else if("/workbench/activity/updateRemark.do".equals(path)){
+            updateRemark(request,response);
         }
+    }
+
+    private void updateRemark(HttpServletRequest request, HttpServletResponse response) {
+        String noteContent = request.getParameter("noteContent");
+        String id = request.getParameter("id");
+        String editTime = DateTimeUtil.getSysTime();
+        String editBy = ((User)request.getSession().getAttribute("user")).getName();
+
+        ActivityRemark ar = new ActivityRemark();
+        ar.setId(id);
+        ar.setNoteContent(noteContent);
+        ar.setEditTime(editTime);
+        ar.setEditBy(editBy);
+        ar.setEditFlag("1");
+
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        boolean success = as.updateRemark(ar);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("success",success);
+        map.put("ar",ar);
+        PrintJson.printJsonObj(response,map);
     }
 
     private void saveRemark(HttpServletRequest request, HttpServletResponse response) {
