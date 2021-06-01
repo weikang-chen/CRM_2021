@@ -5,6 +5,9 @@
 
 <mapper namespace="com.cwk.crm.settings.dao.DicTypeDao">
 
+    <select id="getDicTypeList" resultType="DicType">
+        select * from tbl_dic_type
+    </select>
 
 	
 </mapper>

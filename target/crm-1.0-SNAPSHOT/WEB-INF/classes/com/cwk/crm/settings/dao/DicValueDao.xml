@@ -6,6 +6,9 @@
 <mapper namespace="com.cwk.crm.settings.dao.DicValueDao">
 
 
+    <select id="getDicValueList" resultType="DicValue">
+        select * from tbl_dic_value where typeCode = #{code}
+    </select>
 	
 </mapper>
 

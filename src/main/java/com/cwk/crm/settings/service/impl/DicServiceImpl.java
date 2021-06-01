@@ -18,8 +18,13 @@ public class DicServiceImpl implements DicService {
     @Override
     public Map<String, List<DicValue>> getAll() {
         List<DicType> dicTypeList = dicTypeDao.getDicTypeList();
-        List<DicValue> dicValueList = dicValueDao.getDicValueList();
+
         Map<String, List<DicValue>> map = new HashMap<String, List<DicValue>>();
+        for(DicType dicType:dicTypeList){
+            String code = dicType.getCode();
+            List<DicValue> dicValueList = dicValueDao.getDicValueList(code);
+            map.put(code,dicValueList);
+        }
         return map;
     }
 }
