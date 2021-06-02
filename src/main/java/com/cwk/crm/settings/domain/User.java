@@ -1,4 +1,4 @@
-package com.cwk.crm.settings.damain;
+package com.cwk.crm.settings.domain;
 
 public class User {
     private String id;

@@ -1,6 +1,6 @@
 package com.cwk.crm.web.filter;
 
-import com.cwk.crm.settings.damain.User;
+import com.cwk.crm.settings.domain.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

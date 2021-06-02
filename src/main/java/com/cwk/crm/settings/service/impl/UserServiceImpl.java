@@ -1,6 +1,6 @@
 package com.cwk.crm.settings.service.impl;
 
-import com.cwk.crm.settings.damain.User;
+import com.cwk.crm.settings.domain.User;
 import com.cwk.crm.settings.dao.UserDao;
 import com.cwk.crm.exception.loginException;
 import com.cwk.crm.settings.service.UserService;

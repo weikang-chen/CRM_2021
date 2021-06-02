@@ -1,7 +1,7 @@
 package com.cwk.crm.settings.service.impl;
 
-import com.cwk.crm.settings.damain.DicType;
-import com.cwk.crm.settings.damain.DicValue;
+import com.cwk.crm.settings.domain.DicType;
+import com.cwk.crm.settings.domain.DicValue;
 import com.cwk.crm.settings.dao.DicTypeDao;
 import com.cwk.crm.settings.dao.DicValueDao;
 import com.cwk.crm.settings.service.DicService;

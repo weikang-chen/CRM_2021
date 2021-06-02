@@ -1,6 +1,6 @@
 package com.cwk.crm.settings.dao;
 
-import com.cwk.crm.settings.damain.DicType;
+import com.cwk.crm.settings.domain.DicType;
 
 import java.util.List;
 

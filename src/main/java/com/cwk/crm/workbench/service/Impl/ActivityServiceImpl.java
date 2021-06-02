@@ -1,6 +1,6 @@
 package com.cwk.crm.workbench.service.Impl;
 
-import com.cwk.crm.settings.damain.User;
+import com.cwk.crm.settings.domain.User;
 import com.cwk.crm.settings.dao.UserDao;
 import com.cwk.crm.utils.SqlSessionUtil;
 import com.cwk.crm.vo.PaginationVO;
@@ -9,7 +9,6 @@ import com.cwk.crm.workbench.dao.ActivityRemarkDao;
 import com.cwk.crm.workbench.domain.Activity;
 import com.cwk.crm.workbench.domain.ActivityRemark;
 import com.cwk.crm.workbench.service.ActivityService;
-import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 
 
 import java.util.HashMap;
@@ -122,6 +121,19 @@ public class ActivityServiceImpl implements ActivityService {
             success = false;
         }
         return success;
+    }
+
+    @Override
+    public List<Activity> getActivityByClueId(String clueId) {
+
+        List<Activity> activityList = activityDao.getActivityByClueId(clueId);
+        return activityList;
+    }
+
+    @Override
+    public List<Activity> getActivityByNameAndClueId(Map<String, Object> map) {
+        List<Activity> activityList = activityDao.getActivityByNameAndClueId(map);
+        return activityList;
     }
 
 

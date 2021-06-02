@@ -33,7 +33,7 @@
 
   <!--监听器-->
   <listener>
-    <listener-class>com.cwk.crm.web.filter.listener.SysInitListener</listener-class>
+    <listener-class>com.cwk.crm.web.listener.SysInitListener</listener-class>
   </listener>
 
   <!--用户控制器-->
@@ -73,7 +73,15 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ClueController</servlet-name>
-    <url-pattern>/workbench/clue/xxx.do</url-pattern>
+    <url-pattern>/workbench/clue/getUserList.do</url-pattern>
+    <url-pattern>/workbench/clue/save.do</url-pattern>
+    <url-pattern>/workbench/clue/pageList.do</url-pattern>
+    <url-pattern>/workbench/clue/search.do</url-pattern>
+    <url-pattern>/workbench/clue/detail.do</url-pattern>
+    <url-pattern>/workbench/clue/getActivityByClueId.do</url-pattern>
+    <url-pattern>/workbench/clue/unbund.do</url-pattern>
+    <url-pattern>/workbench/clue/bund.do</url-pattern>
+    <url-pattern>/workbench/clue/getActivityByNameAndClueId.do</url-pattern>
   </servlet-mapping>
   
 </web-app>

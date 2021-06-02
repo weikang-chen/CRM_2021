@@ -1,6 +1,6 @@
 package com.cwk.crm.settings.web.controller;
 
-import com.cwk.crm.settings.damain.User;
+import com.cwk.crm.settings.domain.User;
 import com.cwk.crm.settings.service.UserService;
 import com.cwk.crm.settings.service.impl.UserServiceImpl;
 import com.cwk.crm.utils.MD5Util;

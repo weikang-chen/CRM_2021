@@ -5,7 +5,26 @@
 
 <mapper namespace="com.cwk.crm.workbench.dao.ClueActivityRelationDao">
 	
-	
+	<delete id="unbundById">
+        delete from tbl_clue_activity_relation where id = #{id}
+    </delete>
+
+    <insert id="bund">
+        insert into tbl_clue_activity_relation(
+            id,
+            clueId,
+            activityId
+        )
+        values
+        <foreach collection="list" item="car" separator=",">
+        (
+            #{car.id},
+            #{car.clueId},
+            #{car.activityId}
+        )
+        </foreach>
+
+    </insert>
   	
 </mapper>
 

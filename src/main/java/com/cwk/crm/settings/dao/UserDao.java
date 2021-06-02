@@ -1,6 +1,6 @@
 package com.cwk.crm.settings.dao;
 
-import com.cwk.crm.settings.damain.User;
+import com.cwk.crm.settings.domain.User;
 
 import java.util.List;
 import java.util.Map;

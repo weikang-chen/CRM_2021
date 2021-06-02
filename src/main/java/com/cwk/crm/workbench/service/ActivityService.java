@@ -28,4 +28,8 @@ public interface ActivityService {
     boolean saveRemark(ActivityRemark ar);
 
     boolean updateRemark(ActivityRemark ar);
+
+    List<Activity> getActivityByClueId(String clueId);
+
+    List<Activity> getActivityByNameAndClueId(Map<String, Object> map);
 }

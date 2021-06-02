@@ -8,7 +8,7 @@
   
   <typeAliases>
   
-  	<package name="com.cwk.crm.settings.damain"/>
+  	<package name="com.cwk.crm.settings.domain"/>
   	<package name="com.cwk.crm.workbench.domain"/>
 
   

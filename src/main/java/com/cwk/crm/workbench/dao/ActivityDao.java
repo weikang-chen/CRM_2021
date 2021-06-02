@@ -14,10 +14,13 @@ public interface ActivityDao {
 
     int delete(String[] ids);
 
-
     Activity getActivityById(String id);
 
     int update(Activity activity);
 
     Activity detail(String id);
+
+    List<Activity> getActivityByClueId(String clueId);
+
+    List<Activity> getActivityByNameAndClueId(Map<String, Object> map);
 }

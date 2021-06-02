@@ -1,6 +1,6 @@
-package com.cwk.crm.web.filter.listener;
+package com.cwk.crm.web.listener;
 
-import com.cwk.crm.settings.damain.DicValue;
+import com.cwk.crm.settings.domain.DicValue;
 import com.cwk.crm.settings.service.DicService;
 import com.cwk.crm.settings.service.impl.DicServiceImpl;
 import com.cwk.crm.utils.ServiceFactory;
@@ -22,7 +22,7 @@ public class SysInitListener implements ServletContextListener {
 
         Set<String> set = map.keySet();
         for (String key:set) {
-            application.setAttribute("key",map.get(key));
+            application.setAttribute(key,map.get(key));
         }
 
         System.out.println("上下文域对象创建");
