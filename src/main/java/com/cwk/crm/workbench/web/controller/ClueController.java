@@ -10,10 +10,13 @@ import com.cwk.crm.utils.UUIDUtil;
 import com.cwk.crm.vo.PaginationVO;
 import com.cwk.crm.workbench.domain.Activity;
 import com.cwk.crm.workbench.domain.Clue;
+import com.cwk.crm.workbench.domain.Tran;
 import com.cwk.crm.workbench.service.ActivityService;
 import com.cwk.crm.workbench.service.ClueService;
 import com.cwk.crm.workbench.service.Impl.ActivityServiceImpl;
 import com.cwk.crm.workbench.service.Impl.ClueServiceImpl;
+import com.cwk.crm.workbench.service.Impl.TranServiceImpl;
+import com.cwk.crm.workbench.service.TranService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +48,50 @@ public class ClueController extends HttpServlet {
             getActivityByNameAndClueId(request,response);
         }else if("/workbench/clue/bund.do".equals(path)){
             bund(request,response);
+        }else if("/workbench/clue/getActivityByName.do".equals(path)){
+            getActivityByName(request,response);
+        }else if("/workbench/clue/convert.do".equals(path)){
+            convert(request,response);
         }
+    }
+
+    private void convert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String method = request.getMethod();
+        String clueId = request.getParameter("clueId");
+        Tran t = null;
+        String createBy = ((User)request.getSession().getAttribute("user")).getName();
+        if("POST".equals(method)){
+            String money = request.getParameter("money");
+            String name = request.getParameter("name");
+            String expectedDate = request.getParameter("expectedDate");
+            String stage = request.getParameter("stage");
+            String activityId = request.getParameter("activityId");
+            String id = UUIDUtil.getUUID();
+            String createTime = DateTimeUtil.getSysTime();
+            t = new Tran();
+            t.setMoney(money);
+            t.setName(name);
+            t.setExpectedDate(expectedDate);
+            t.setStage(stage);
+            t.setActivityId(activityId);
+            t.setId(id);
+            t.setCreateTime(createTime);
+            t.setCreateBy(createBy);
+        }
+        ClueService cs = (ClueService) ServiceFactory.getService(new ClueServiceImpl());
+        boolean success = cs.convert(clueId,t,createBy);
+        if(success){
+            System.out.println(request.getContextPath());
+            response.sendRedirect(request.getContextPath()+"/workbench/clue/index.jsp");
+        }
+
+    }
+
+    private void getActivityByName(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        List<Activity> activityList = as.getActivityByName(name);
+        PrintJson.printJsonObj(response,activityList);
     }
 
     private void bund(HttpServletRequest request, HttpServletResponse response) {

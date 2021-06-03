@@ -32,4 +32,6 @@ public interface ActivityService {
     List<Activity> getActivityByClueId(String clueId);
 
     List<Activity> getActivityByNameAndClueId(Map<String, Object> map);
+
+    List<Activity> getActivityByName(String name);
 }
