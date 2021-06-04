@@ -151,6 +151,14 @@
 
     </select>
 
+    <select id="getById" resultType="Clue">
+        select * from tbl_clue where id=#{clueId}
+    </select>
+
+    <delete id="delete">
+        delete from tbl_clue where id=#{clueId}
+    </delete>
+
 
   	
 </mapper>

@@ -229,9 +229,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 							<div class="col-sm-10" style="width: 300px;">
 								<select class="form-control" id="create-appellation">
 								  <option></option>
-								  <c:forEach items="${appellation}" var="a">
-									  <option value="${a.value}">${a.text}</option>
-								  </c:forEach>
+									<c:forEach items="${appellation}" var="a">
+										<option value="${a.value}">${a.text}</option>
+									</c:forEach>
 
 								</select>
 							</div>

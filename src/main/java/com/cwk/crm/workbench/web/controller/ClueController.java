@@ -55,7 +55,7 @@ public class ClueController extends HttpServlet {
         }
     }
 
-    private void convert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void convert(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         String method = request.getMethod();
         String clueId = request.getParameter("clueId");
         Tran t = null;
@@ -81,7 +81,6 @@ public class ClueController extends HttpServlet {
         ClueService cs = (ClueService) ServiceFactory.getService(new ClueServiceImpl());
         boolean success = cs.convert(clueId,t,createBy);
         if(success){
-            System.out.println(request.getContextPath());
             response.sendRedirect(request.getContextPath()+"/workbench/clue/index.jsp");
         }
 

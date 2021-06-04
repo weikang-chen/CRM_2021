@@ -1,6 +1,5 @@
 package com.cwk.crm.workbench.dao;
 
-import com.cwk.crm.workbench.domain.Activity;
 import com.cwk.crm.workbench.domain.Clue;
 
 import java.util.List;
@@ -16,6 +15,7 @@ public interface ClueDao {
 
     Clue detail(String id);
 
-
     Clue getById(String clueId);
+
+    int delete(String clueId);
 }
