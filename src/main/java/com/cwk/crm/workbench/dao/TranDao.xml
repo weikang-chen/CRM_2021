@@ -42,6 +42,39 @@
             #{nextContactTime}
         )
     </insert>
+
+    <select id="detail" resultType="Tran">
+        select
+            tran.id,
+            user.name as owner,
+            tran.money,
+            tran.name,
+            tran.expectedDate,
+            customer.name as customerId,
+            tran.stage,
+            tran.type,
+            tran.source,
+            activity.name as activityId,
+            contacts.fullname as contactsId,
+            tran.createBy,
+            tran.createTime,
+            tran.editBy,
+            tran.editTime,
+            tran.description,
+            tran.contactSummary,
+            tran.nextContactTime
+
+        from tbl_tran tran
+        join tbl_user user on tran.owner=user.id
+        left join tbl_contacts contacts on tran.contactsId=contacts.id
+        join tbl_customer customer on tran.customerId=customer.id
+        left join tbl_activity activity on tran.activityId=activity.id
+        where tran.id=#{id}
+    </select>
+
+    <update id="changeStage">
+        update tbl_tran set stage=#{stage},editBy=#{editBy},editTime=#{editTime} where id=#{id}
+    </update>
   	
 </mapper>
 
