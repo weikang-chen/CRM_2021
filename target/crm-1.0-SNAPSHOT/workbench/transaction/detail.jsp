@@ -15,9 +15,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	//阶段分界点
 	int point = 0;
 	for(int i = 0;i < stageList.size();i++){
-		if("0".equals(pMap.get(stageList.get(i).getValue())));
-		point = i;
-		break;
+		if("0".equals(pMap.get(stageList.get(i).getValue()))){
+			point = i;
+			break;
+		}
+
 	}
 %>
 <!DOCTYPE html>
@@ -169,13 +171,84 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					$("#possibility").html(json[data.t.stage]);
 					$("#editTime").html(data.t.editTime);
 					$("#editBy").html(data.t.editBy);
-
+					changeIcon(stage,i);
+					showHistoryList();
 				}else {
-					alert();
+					alert("修改阶段失败！");
 				}
 
 			}
 		})
+
+	}
+	function changeIcon(stage,i) {
+		//当前阶段
+		var cp = $("#possibility").html();
+		//当前阶段下标
+		var index = i;
+		//分界点
+		var p = "<%=point%>";
+
+		//当前阶段的可能性为0，前7个一定是黑圈，后两个一定是红叉、黑叉
+		if(cp=="0"){
+			//遍历前7个
+			for(var j = 0;j<p;j++){
+				//黑圈
+				$("#"+j).removeClass();
+				$("#"+j).addClass("glyphicon glyphicon-record mystage");
+				$("#"+j).css("color","#000000");
+
+			}
+
+			//遍历后两个
+			for(var j = p;j<<%=stageList.size()%>;j++){
+				//如果是当前阶段
+				if(j == index){
+					//红叉
+					$("#"+j).removeClass();
+					$("#"+j).addClass("glyphicon glyphicon-remove mystage");
+					$("#"+j).css("color","#FF0000");
+
+				}else {//如果不是当前阶段
+					//黑叉
+					$("#"+j).removeClass();
+					$("#"+j).addClass("glyphicon glyphicon-remove mystage");
+					$("#"+j).css("color","#000000");
+
+				}
+			}
+		}else {//当前阶段的可能性不为0，前7个包含绿圈、绿色标记、黑圈，后两个一定是黑叉
+			//遍历前7个绿圈、绿色标记、黑圈
+			for(var j = 0;j<p;j++){
+				if(j == index){
+					//绿色标记
+					$("#"+j).removeClass();
+					$("#"+j).addClass("glyphicon glyphicon-map-marker mystage");
+					$("#"+j).css("color","#90F790");
+
+				}else if(j<index){
+					//绿圈
+					$("#"+j).removeClass();
+					$("#"+j).addClass("glyphicon glyphicon-ok-circle mystage");
+					$("#"+j).css("color","#90F790");
+
+				}else {
+					//黑圈
+					$("#"+j).removeClass();
+					$("#"+j).addClass("glyphicon glyphicon-record mystage");
+					$("#"+j).css("color","#000000");
+
+				}
+
+			}
+			//遍历后两个
+			for(var j = p;j<<%=stageList.size()%>;j++){
+				//一定是黑叉
+				$("#"+j).removeClass();
+				$("#"+j).addClass("glyphicon glyphicon-remove mystage");
+				$("#"+j).css("color","#000000");
+			}
+		}
 
 	}
 	

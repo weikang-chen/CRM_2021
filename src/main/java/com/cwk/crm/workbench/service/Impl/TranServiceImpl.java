@@ -11,7 +11,9 @@ import com.cwk.crm.workbench.domain.Tran;
 import com.cwk.crm.workbench.domain.TranHistory;
 import com.cwk.crm.workbench.service.TranService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TranServiceImpl implements TranService {
     private TranDao tranDao = SqlSessionUtil.getSqlSession().getMapper(TranDao.class);
@@ -89,5 +91,15 @@ public class TranServiceImpl implements TranService {
             flag = false;
         }
         return flag;
+    }
+
+    @Override
+    public Map<String, Object> getCharts() {
+        int total = tranDao.getTotal();
+        List<Map<String,String>> dataList = tranDao.getCountByStage();
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("total",total);
+        map.put("dataList",dataList);
+        return map;
     }
 }
